@@ -9,7 +9,7 @@
 
 @foreach ($Tabs as $Tab)
 
-<li><a href="{{$Tab}}">{{$Tab}} </a></li>
+<li><a href="/a-propos/{{$Tab}}">{{$Tab}} </a></li>
 
 @endforeach
 

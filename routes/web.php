@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\PolitessController;
+use App\Models\Category;
+use App\Models\Movie;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,57 +20,120 @@ Route::get('/', function () {
     return view('accueil');
 });
 
-Route::get('/bonjour', function () {
+Route::get('/bonjour', [PolitessController::class, 'helloEveryone']);
 
-    return view('Hello', [
+Route::get('/au-revoir', [PolitessController::class, 'goodBye']);
 
-        'name' => 'Fiorella',
-        'numbers' => [1, 2, 3],
-    
+Route::get('/bonjour/{name}', [PolitessController::class, 'helloSomone']);
+
+Route::get('/a-propos', [PolitessController::class, 'TotoMama']);
+
+
+Route::get('/a-propos/{user}', [PolitessController::class, 'TotoShow']);
+
+
+
+Route::get('/categories/creer', function () {
+
+    return view('categories.create');
+});
+
+
+Route::post('/categories/creer', function () {
+
+    //vérifier les erreurs; 
+
+    request()->validate([
+
+        'name' => 'required|min:3|max:10',
+        //'email' => 'required|email',
     ]);
-});
 
-Route::get('/au-revoir', function() {
+    //dump(request('name'));
 
-    return view('good-bye'); 
-});
+    // s'il y'a pas d'erreur , on crée la catégorie 
 
-Route::get('/bonjour/{name}', function ($name) {
+    Category::create([
 
-    return view('Hello',[
-        'name' => $name,
-        'numbers' => [],
+        'name' => request('name'),
     ]);
-});
 
-Route::get('/a-propos', function() {
-
-    return view('Toto', [
-
-        'nom' => '/a propos',
-        'Tabs' => ['Xavier', 'Mahfoud', 'Stépahen'],
-    ]
-
-);
-
+    return redirect('/exercice/categories');
 });
 
 
-Route::get('/a-propos/{user}', function($user) {
 
-    return view('Toto-show', [
 
-        'user' => $user,
-       
-    ]
 
-);
+
+
+Route::get('/exercice/categories', function (){
+    return view ('exercice.categories',[
+        'categories' => Category::all()
+    ]); 
+});
+
+Route::get('/exercice/categories/creer', function () {
+
+    $category = Category::create(
+        [
+            'name' => 'Test'
+        ]
+        );
+
+        return redirect('/exercice/categories');
+
 
 });
-/* 
-Route::get('/a-propos/{user}', function ($user) {
 
-    return ;
+Route::get('/exercice/categories/{id}', function($id){
+
+    dump($id);
+
+    $category = Category::find($id);
+
+    return $category->name;
 
 });
-*/
+
+Route::get('/exercice/films', function (){
+
+    return view ('exercice.films', [
+
+        'movies' => Movie::all()
+            
+        ]);
+});
+
+
+
+Route::get('/exercice/films/creer', function() {
+
+    $movie = Movie::create(
+
+      [
+            'title' => 'Bala',
+            'synopsys' => 'gaba',
+            'duration' =>  5,
+            'cover' => 'null',
+      ]  
+      );
+
+      return redirect('/exercice/films/');
+});
+
+
+
+
+Route::get('/exercice/films/{id}', function($id){
+
+    $movie = Movie::find($id);
+
+    return view('exercice.aman', [
+
+        'movie' => $movie
+
+    ]);
+
+
+});

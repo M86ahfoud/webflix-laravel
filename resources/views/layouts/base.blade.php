@@ -8,13 +8,17 @@
 </head>
 <body>
     <ul>
+        <li><a href="/">Hello</li>
         <li><a href="/bonjour">Hello</li>
         <li><a href="/au-revoir">Good bye</li>
+        <li><a href="/a-propos">Good bye</li>
+        <li><a href="/exercice/categories">categories</a></li>
+        <li><a href="/exercice/films">Films (Exo)</a></li>
+        <li><a href="/categories/creer">Ajouter une catégorie</a></li>
         
         
     </ul>
 
-    <a href="/">Connexion</a>
 
     @yield('content')
 </body>
