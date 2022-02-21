@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\categoryController;
 use App\Http\Controllers\PolitessController;
 use App\Models\Category;
 use App\Models\Movie;
@@ -31,41 +32,16 @@ Route::get('/a-propos', [PolitessController::class, 'TotoMama']);
 
 Route::get('/a-propos/{user}', [PolitessController::class, 'TotoShow']);
 
-
-
-Route::get('/categories/creer', function () {
-
-    return view('categories.create');
-});
-
-
-Route::post('/categories/creer', function () {
-
-    //vérifier les erreurs; 
-
-    request()->validate([
-
-        'name' => 'required|min:3|max:10',
-        //'email' => 'required|email',
-    ]);
-
-    //dump(request('name'));
-
-    // s'il y'a pas d'erreur , on crée la catégorie 
-
-    Category::create([
-
-        'name' => request('name'),
-    ]);
-
-    return redirect('/exercice/categories');
-});
+Route::get('/categories', [categoryController::class, 'index']); 
 
 
 
+Route::get('/categories/creer', [categoryController::class, 'create']);
 
 
+Route::post('/categories/creer', [categoryController::class, 'store']);
 
+Route::get('/categories/{category}', [categoryController::class, 'show']);
 
 Route::get('/exercice/categories', function (){
     return view ('exercice.categories',[
