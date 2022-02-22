@@ -12,16 +12,17 @@
     </div>
 @endif
 
-<form action="" method="POST">
+</h1> modifier {{ $category->name }} </h1>
 
-    @csrf
+<form action="/categories/{{ $category->id }}" method="POST">
 
-    <input type="text" name="name" placeholder="Nom..." class="form-control" value="{{old('name')}}">
-    
+    @csrf @method('put')
+
+    <input type="text" name="name" placeholder="Nom..." class="form-control" value="{{  old('name', $category->name) }}">
     <!--<input type="text" name="email" placeholder="email...">-->
 
 
-    <button class="btn btn-primary mt-3">Ajouter</button>
+    <button class="btn btn-primary mt-3">Modifier</button>
 
 </form>
 

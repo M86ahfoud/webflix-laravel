@@ -16,10 +16,9 @@
 
     @csrf
 
-    <input type="text" name="name" placeholder="Nom..." class="form-control" value="{{old('name')}}">
-    
+    <input type="text" name="title" placeholder="title..." class="form-control" value="{{old('title')}}">
     <!--<input type="text" name="email" placeholder="email...">-->
-
+    
 
     <button class="btn btn-primary mt-3">Ajouter</button>
 

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 
-class categoryController extends Controller
+class MovieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class categoryController extends Controller
      */
     public function index()
     {
-        return view('categories.index', [
-            'categories' => Category::latest()->paginate(8),
+        return view('movies.index', [
+            'movies' => Movie::latest()->paginate(10),
         ]);
     }
 
@@ -26,7 +26,7 @@ class categoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('movies.create');
     }
 
     /**
@@ -37,21 +37,12 @@ class categoryController extends Controller
      */
     public function store(Request $request)
     {
-        //vérifier les erreurs;
-        request()->validate([
-
-            'name' => 'required|min:3|max:20',
-            //'email' => 'required|email',
-        ]);
+         //vérifier les erreurs;
+       
 
         // s'il y'a pas d'erreur , on crée la catégorie 
 
-        $category = Category::create([
-
-            'name' => request('name'),
-        ]);
-
-        return redirect('/categories')->with('status', 'La catégorie'.$category->name.' a été crée.');
+        
     }
 
     /**
@@ -60,9 +51,9 @@ class categoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Movie $movie)
     {
-        return view('categories.show', ['category' => $category
+        return view('movies.show', ['movie' => $movie
         
     ]);
     }
@@ -73,12 +64,9 @@ class categoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(category $category)
+    public function edit($id)
     {
-      return view('categories.edit', [
-
-          'category' => $category, 
-      ]);
+        //
     }
 
     /**
@@ -88,17 +76,9 @@ class categoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        // vérifier les erreurs 
-        request()->validate([
-            'name' => 'required|min:3',
-        ]);
-        // On modifie la catégorie dans la BDD 
-        $category->update([
-
-            'name' => request('name'),
-        ]);
+        //
     }
 
     /**
@@ -107,10 +87,8 @@ class categoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete(); 
-
-        return redirect('/categories')->with('status', 'La categorie '.$category->name.' a été supprimée' );
+        //
     }
 }

@@ -34,6 +34,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Accueil</a>
                     <a class="nav-link" href="/categories">catégories</a>
                     <a class="nav-link" href="/a-propos">A propos</a>
+                    <a class="nav-link" href="/movies">Les films</a>
                 </div>
             </div>
         </div>

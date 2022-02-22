@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\categoryController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PolitessController;
 use App\Models\Category;
 use App\Models\Movie;
@@ -34,14 +35,26 @@ Route::get('/a-propos/{user}', [PolitessController::class, 'TotoShow']);
 
 Route::get('/categories', [categoryController::class, 'index']); 
 
-
-
 Route::get('/categories/creer', [categoryController::class, 'create']);
 
 
 Route::post('/categories/creer', [categoryController::class, 'store']);
 
 Route::get('/categories/{category}', [categoryController::class, 'show']);
+
+Route::get('/categories/{category}/modifier', [categoryController::class, 'edit']);
+
+Route::put('/categories/{category}', [categoryController::class, 'update']);
+
+Route::delete('/categories/{category}/',[categoryController::class, 'destroy']);
+
+Route::get('/movies', [MovieController::class, 'index']);
+
+Route::get('/movies/creer', [MovieController::class, 'create']);
+
+Route::post('/movies/creer', [MovieController::class, 'store']);
+
+Route::get('/movies/{movie}', [MovieController::class, 'show']);
 
 Route::get('/exercice/categories', function (){
     return view ('exercice.categories',[

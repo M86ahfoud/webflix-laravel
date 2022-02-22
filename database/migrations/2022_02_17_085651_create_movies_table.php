@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('duration');
             $table->string('youtube')->nullable();
             $table->string('cover');
-            $table->foreignId('released_at')->nullable();
+            $table->timestamp('released_at')->nullable();
             $table->foreignId('category_id')->nullable();
             $table->foreignId('user_id')->nullable();
             $table->timestamps();
