@@ -5,6 +5,8 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PolitessController;
 use App\Models\Category;
 use App\Models\Movie;
+use Database\Factories\MovieFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +58,7 @@ Route::post('/movies/creer', [MovieController::class, 'store']);
 
 Route::get('/movies/{movie}', [MovieController::class, 'show']);
 
+
 Route::get('/exercice/categories', function (){
     return view ('exercice.categories',[
         'categories' => Category::all()
@@ -98,13 +101,15 @@ Route::get('/exercice/films', function (){
 
 Route::get('/exercice/films/creer', function() {
 
-    $movie = Movie::create(
+     Movie::create(
 
       [
             'title' => 'Bala',
             'synopsys' => 'gaba',
             'duration' =>  5,
-            'cover' => 'null',
+            'youtube'  => '1234',
+            'cover' => 'scarface.jpg',
+            'released_at' => '1983-01-01',
       ]  
       );
 
@@ -126,3 +131,7 @@ Route::get('/exercice/films/{id}', function($id){
 
 
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

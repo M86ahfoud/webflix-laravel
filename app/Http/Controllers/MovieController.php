@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,10 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('movies.create');
+        return view('movies.create', [
+
+            'categories' => Category::all()->sortBy('name'),
+        ]);
     }
 
     /**
@@ -37,12 +41,29 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-         //vérifier les erreurs;
-       
+        request()->validate([
+            //vérifier les erreurs;
+            'title' => 'required|min:2|unique:movies,title',
+            'synopsys' => 'required|min:10',
+            'duration' => 'required|numeric',
+            'youtube' => 'nullable',
+            'cover' => 'required|image|max:1024',
+            'released_at' => 'required|date',
+            'category' => 'exists:categories,id',
 
-        // s'il y'a pas d'erreur , on crée la catégorie 
+        ]);
 
-        
+        // ajouter un film dans la BDD;
+        Movie::create([
+            'title' => request('title'),
+            'synopsys' => request('synopsys'),
+            'duration' => request('duration'),
+            'youtube' => request('youtube'),
+            // Pour faire l'upload
+            'cover' => '/storage/'. request('cover')->store('covers', 'public'), // /storage/covers/123456.jpg
+            'released_at' => request('released_at'),
+            'category_id' => request('category'),
+        ]);
     }
 
     /**
@@ -53,9 +74,10 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        return view('movies.show', ['movie' => $movie
-        
-    ]);
+        return view('movies.show', [
+            'movie' => $movie
+
+        ]);
     }
 
     /**

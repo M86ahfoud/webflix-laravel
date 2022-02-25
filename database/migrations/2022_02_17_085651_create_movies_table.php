@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('youtube')->nullable();
             $table->string('cover');
             $table->timestamp('released_at')->nullable();
-            $table->foreignId('category_id')->nullable();
+            $table->foreignId('category_id')->nullable()->constrained();
             $table->foreignId('user_id')->nullable();
             $table->timestamps();
         });

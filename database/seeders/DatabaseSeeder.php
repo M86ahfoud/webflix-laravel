@@ -27,7 +27,12 @@ class DatabaseSeeder extends Seeder
 
         foreach ($genres as $genre) {
 
-            Category:: factory()->create(['name' => $genre['name']]);
+            Category:: factory()->create([
+                
+                'id' => $genre['id'],
+                
+                'name' => $genre['name']
+            ]);
         }
 
         //Category::factory(30)->create();
@@ -38,8 +43,14 @@ class DatabaseSeeder extends Seeder
 
         foreach ($movies as $movie) {
 
-            Movie:: factory()->create(['title' => $movie['title'], 'synopsys' => $movie['overview'],
-             'cover' => 'https://image.tmdb.org/t/p/w500'.$movie['poster_path'], 'released_at' => $movie['release_date']]);
+            Movie:: factory()->create([
+                'title' => $movie['title'],
+                'synopsys' => $movie['overview'],
+                'released_at' => $movie['release_date'],
+             'cover' => 'https://image.tmdb.org/t/p/w500'.$movie['poster_path'], 
+             
+             'category_id' => $movie['gener_ids'][0]
+            ]);
         }
         
         
